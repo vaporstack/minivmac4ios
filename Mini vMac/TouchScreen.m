@@ -9,6 +9,7 @@
 #import "TouchScreen.h"
 #import "AppDelegate.h"
 #import "ScreenView.h"
+#import "PencilDetector.h"
 
 @implementation TouchScreen
 {
@@ -19,14 +20,60 @@
     NSTimeInterval touchTimeThreshold;
     CGFloat touchDistanceThreshold;
     NSMutableSet *currentTouches;
+    Boolean havePencil;
+    Boolean pencilExclusive;
+}
+
+- (Boolean) detectPencil
+{
+	CBCentralManager* m_centralManager = [[CBCentralManager alloc] initWithDelegate:nil
+								queue:nil
+							      options:nil];
+	
+	// Device information UUID
+	NSArray* myArray = [NSArray arrayWithObject:[CBUUID UUIDWithString:@"180A"]];
+	
+	NSArray* peripherals =
+	[m_centralManager retrieveConnectedPeripheralsWithServices:myArray];
+	for (CBPeripheral* peripheral in peripherals)
+	{
+		if ([[peripheral name] isEqualToString:@"Apple Pencil"])
+		{
+			// The Apple pencil is connected
+			return YES;
+		}
+	}
+	return NO;
+	
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
-    if ((self = [super initWithFrame:frame])) {
-        mouseButtonDelay = 0.05;
-        touchTimeThreshold = 0.25;
-        touchDistanceThreshold = 16;
-        currentTouches = [NSMutableSet setWithCapacity:4];
+	
+	
+if ((self = [super initWithFrame:frame])) {
+    mouseButtonDelay = 0.05;
+    touchTimeThreshold = 0.25;
+    touchDistanceThreshold = 16;
+    currentTouches = [NSMutableSet setWithCapacity:4];
+    
+    if ([self detectPencil] )
+	{
+        havePencil = true;
+        NSLog(@"We have a pencil!");
+        touchTimeThreshold = 0.05;
+        touchDistanceThreshold = 2;
+        
+        //  currently this just blindly sets pencil to exclusive if we have one,
+        //  which subsequently ignores TouchScreen touches that are not the pencil.
+        //  what would be much better would be a settings toggle that appeared
+        //  if the pencil is detected, but I have very little skill hacking up
+        //  storyboards and was unable to correctly add this.
+        pencilExclusive = true;
+	}else{
+        havePencil = false;
+        NSLog(@"No pencil!");
+	}
+
     }
     return self;
 }
@@ -59,11 +106,33 @@
     return touchLoc;
 }
 
+
+- (Boolean)checkPencilExclusitivity:(NSSet *)touches withEvent:(UIEvent*) event
+{
+    if ( !pencilExclusive )
+    {
+        return YES;
+    }
+    
+    for (UITouch* touch in touches) {
+        if (touch.type == UITouchTypeStylus ){
+            return YES;
+        }
+    }
+    return NO;
+}
+
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    
     [currentTouches unionSet:touches];
     if (![AppDelegate sharedEmulator].running) return;
+    
+    if (![self checkPencilExclusitivity:touches withEvent:event])
+        return;
+    
     CGPoint touchLoc = [self effectiveTouchPointForEvent:event];
     Point mouseLoc = [self mouseLocForCGPoint:touchLoc];
+    
     [[AppDelegate sharedEmulator] setMouseX:mouseLoc.h Y:mouseLoc.v];
     [self performSelector:@selector(mouseDown) withObject:nil afterDelay:mouseButtonDelay];
     previousTouchLoc = touchLoc;
@@ -72,6 +141,10 @@
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
     if (![AppDelegate sharedEmulator].running) return;
+   
+    if (![self checkPencilExclusitivity:touches withEvent:event])
+        return;
+    
     CGPoint touchLoc = [self effectiveTouchPointForEvent:event];
     Point mouseLoc = [self mouseLocForCGPoint:touchLoc];
     [[AppDelegate sharedEmulator] setMouseX:mouseLoc.h Y:mouseLoc.v];
@@ -81,6 +154,10 @@
     [currentTouches minusSet:touches];
     if (![AppDelegate sharedEmulator].running) return;
     if (currentTouches.count > 0) return;
+
+    if (![self checkPencilExclusitivity:touches withEvent:event])
+        return;
+    
     CGPoint touchLoc = [self effectiveTouchPointForEvent:event];
     Point mouseLoc = [self mouseLocForCGPoint:touchLoc];
     [[AppDelegate sharedEmulator] setMouseX:mouseLoc.h Y:mouseLoc.v];

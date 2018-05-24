@@ -128,6 +128,7 @@
 		28F6B4C21CF07F5C002D76D0 /* liblibres.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28F6B4B61CF07F32002D76D0 /* liblibres.a */; };
 		28F6B4CA1CF1FA7A002D76D0 /* about.plist in Resources */ = {isa = PBXBuildFile; fileRef = 28F6B4C91CF1FA7A002D76D0 /* about.plist */; };
 		28F6B4CF1CF77099002D76D0 /* compat.m in Sources */ = {isa = PBXBuildFile; fileRef = 28F6B4CE1CF77099002D76D0 /* compat.m */; };
+		57E4A84620B71BE900C3FD9A /* PencilDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E4A84520B71BE900C3FD9A /* PencilDetector.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -359,6 +360,8 @@
 		28F6B4C91CF1FA7A002D76D0 /* about.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = about.plist; sourceTree = "<group>"; };
 		28F6B4CE1CF77099002D76D0 /* compat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = compat.m; sourceTree = "<group>"; };
 		28F875921D29402B001E99EB /* PlugIn-Capabilities.plist.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "PlugIn-Capabilities.plist.xml"; sourceTree = "<group>"; };
+		57E4A84520B71BE900C3FD9A /* PencilDetector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PencilDetector.m; sourceTree = "<group>"; };
+		57E4A84720B71C0100C3FD9A /* PencilDetector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PencilDetector.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -607,6 +610,8 @@
 				28BA89871CE73FBC00A98104 /* MNVMApplication.m */,
 				28CE8ED41CD4F56C00FE25A8 /* ScreenView.h */,
 				28CE8ED51CD4F56C00FE25A8 /* ScreenView.m */,
+				57E4A84520B71BE900C3FD9A /* PencilDetector.m */,
+				57E4A84720B71C0100C3FD9A /* PencilDetector.h */,
 				28D5A3FB1CD6868E001A33F6 /* TouchScreen.h */,
 				28D5A3FC1CD6868E001A33F6 /* TouchScreen.m */,
 				28BA89831CE73E7200A98104 /* TrackPad.h */,
@@ -902,7 +907,7 @@
 		28F676B51CD15E0B00FC6FA6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = namedfork;
 				TargetAttributes = {
 					283422C91CF8EF8C0088B634 = {
@@ -920,7 +925,7 @@
 					};
 					28F676BC1CD15E0B00FC6FA6 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = UJXNDZ5TNU;
+						DevelopmentTeam = W7MSG2FEA9;
 					};
 					28F6B48D1CF07DDD002D76D0 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -1212,6 +1217,7 @@
 				28848B621CDE97D600B86C45 /* InsertDiskViewController.m in Sources */,
 				28F676C81CD15E0B00FC6FA6 /* ViewController.m in Sources */,
 				28D5A3FD1CD6868F001A33F6 /* TouchScreen.m in Sources */,
+				57E4A84620B71BE900C3FD9A /* PencilDetector.m in Sources */,
 				28F676C51CD15E0B00FC6FA6 /* AppDelegate.m in Sources */,
 				28BA89801CE7315400A98104 /* KBKeyboardView.m in Sources */,
 				28F676C21CD15E0B00FC6FA6 /* main.m in Sources */,
@@ -1531,12 +1537,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -1584,12 +1592,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -1624,7 +1634,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = UJXNDZ5TNU;
+				DEVELOPMENT_TEAM = W7MSG2FEA9;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)";
 				INFOPLIST_FILE = "Mini vMac/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1642,7 +1652,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = UJXNDZ5TNU;
+				DEVELOPMENT_TEAM = W7MSG2FEA9;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)";
 				INFOPLIST_FILE = "Mini vMac/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
